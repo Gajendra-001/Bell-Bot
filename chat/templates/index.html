@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMX-Chatbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css" rel="stylesheet">
+
+</head>
+<style>
+.font-space-grotesk {
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Glass Container */
+.glass-container {
+    background: rgba(24, 61, 61, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(92, 131, 116, 0.3);
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(4, 13, 18, 0.3);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #5C8374;
+    border-radius: 3px;
+}
+
+/* Neon Shadow Effects */
+.shadow-neon {
+    box-shadow: 0 0 15px rgba(92, 131, 116, 0.3),
+                0 0 30px rgba(92, 131, 116, 0.2);
+}
+
+.shadow-glow {
+    box-shadow: 0 2px 10px rgba(92, 131, 116, 0.2);
+}
+
+/* Message Animations */
+.message-animation {
+    animation: messageSlide 0.3s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes messageSlide {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Typing Indicator */
+.typing-dot {
+    width: 8px;
+    height: 8px;
+    background:rgb(96, 142, 124);
+    border-radius: 50%;
+    animation: typingAnimation 1.4s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(1) { animation-delay: 0s; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingAnimation {
+    0%, 60%, 100% {
+        transform: translateY(0);
+    }
+    30% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Pulse Animation */
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(74, 222, 128, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+    }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 640px) {
+    .glass-container {
+        margin: 0;
+        height: 100vh;
+        border-radius: 0;
+    }
+}
+</style>
+
+<body class="bg-[#040D12] flex items-center justify-center h-screen p-4 font-space-grotesk overflow-hidden">
+    <!-- Enhanced Particle Background -->
+    <div id="particles-js" class="fixed inset-0 z-0"></div>
+
+    <!-- Main Container with Advanced Glass Effect -->
+    <div class="flex flex-col w-full max-w-2xl h-full glass-container rounded-lg shadow-neon z-10">
+        <!-- Futuristic Header -->
+        <div class="px-6 py-4 border-b border-[#5C8374]/30 flex items-center justify-between relative overflow-hidden">
+            <div class="flex items-center space-x-3">
+                <div class="w-3 h-3 bg-green-400 rounded-full pulse-animation"></div>
+                <h1 class="text-[#5C8374] text-xl font-bold tracking-wide">HMX AI</h1>
+            </div>
+            <div class="flex items-center space-x-2">
+                <div class="text-[#5C8374] text-sm bg-[#040D12]/30 px-3 py-1 rounded-full border border-[#5C8374]/30">
+                    Connected <span class="inline-block w-2 h-2 bg-green-400 rounded-full ml-2 pulse-animation"></span>
+                </div>
+            </div>
+            <!-- Animated Header Background -->
+            <div class="absolute inset-0 bg-gradient-to-r from-[#183D3D]/10 to-[#5C8374]/10 pointer-events-none"></div>
+        </div>
+
+        <!-- Enhanced Chat Box -->
+        <div id="chat-box" class="flex-grow p-4 overflow-y-auto space-y-4 custom-scrollbar">
+            <!-- Welcome Message with 3D Effect -->
+            <div class="flex justify-start message-animation">
+                <div class="message bot-message my-2 py-3 px-4 max-w-xs rounded-lg bg-gradient-to-r from-[#183D3D] to-[#4a6d60] text-gray-100 shadow-glow transform hover:scale-102 transition-all duration-300">
+                    Welcome to the next generation of chat! How can I assist you? 🌟
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Typing Indicator -->
+        <div id="typing-indicator" class="hidden px-6 py-2">
+            <div class="flex space-x-2 items-center text-[#5C8374] bg-[#040D12]/30 rounded-full px-4 py-2 w-fit">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+
+        <!-- Futuristic Input Area -->
+        <div class="flex items-center p-4 space-x-4 border-t border-[#5C8374]/30 bg-gradient-to-b from-transparent to-[#040D12]/20">
+            <input type="text" id="user-input" placeholder="Type your message here"
+                class="flex-grow px-4 py-3 text-white bg-[#040D12]/50 rounded-lg border border-[#5C8374] focus:outline-none focus:ring-2 focus:ring-[#5C8374] transition-all duration-300">
+            <button id="send-btn" onclick="handleButton()"
+                class="px-6 py-3 text-white bg-gradient-to-r from-[#5C8374] to-[#183D3D] hover:from-[#4a6d60] hover:to-[#132d2d] rounded-lg shadow-lg focus:outline-none transform hover:scale-105 transition-all duration-300">
+                <i id="button-icon" class="ph ph-paper-plane-right text-xl"></i>
+            </button>
+        </div>
+    </div>
+ 
+    <script>
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const buttonIcon = document.getElementById('button-icon');
+        const typingIndicator = document.getElementById('typing-indicator');
+        let currentEventSource = null;
+        let isStreaming = false;
+
+        function toggleInputState(disable) {
+            userInput.disabled = disable;
+            if (disable) {
+                buttonIcon.className = 'ph ph-stop-circle text-xl';
+                sendBtn.classList.add('bg-red-500');
+            } else {
+                buttonIcon.className = 'ph ph-paper-plane-right text-xl';
+                sendBtn.classList.remove('bg-red-500');
+            }
+        }
+
+        function handleButton() {
+            if (isStreaming) {
+                stopStreaming();
+            } else {
+                sendMessage();
+            }
+        }
+
+        function stopStreaming() {
+            if (currentEventSource) {
+                currentEventSource.close();
+                currentEventSource = null;
+            }
+            isStreaming = false;
+            toggleInputState(false);
+            typingIndicator.classList.add('hidden');
+        }
+
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            if (message === '') return;
+
+            // Close any existing EventSource
+            stopStreaming();
+
+            displayMessage(message, 'user-message', 'justify-end', 'bg-gradient-to-r from-[#5C8374] to-[#183D3D]');
+
+            isStreaming = true;
+            toggleInputState(true);
+            userInput.value = '';
+            typingIndicator.classList.remove('hidden');
+
+            const messageWrapper = document.createElement('div');
+            messageWrapper.className = `flex justify-start message-animation`;
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message bot-message my-2 py-3 px-4 max-w-xs rounded-lg bg-gradient-to-r from-[#183D3D] to-[#4a6d60] text-gray-100 shadow-glow`;
+
+            messageWrapper.appendChild(messageDiv);
+            document.getElementById('chat-box').appendChild(messageWrapper);
+            smoothScrollToBottom();
+
+            try {
+                currentEventSource = new EventSource(`/api/chat/stream?prompt=${encodeURIComponent(message)}`);
+
+                currentEventSource.onmessage = function(event) {
+                    if (event.data === '[END]') {
+                        stopStreaming();
+                    } else {
+                        messageDiv.textContent += event.data;
+                        smoothScrollToBottom();
+                    }
+                };
+
+                currentEventSource.onerror = function() {
+                    stopStreaming();
+                };
+            } catch (error) {
+                console.error('Error:', error);
+                stopStreaming();
+            }
+        }
+
+        function displayMessage(message, className, justifyClass, bgClass) {
+            const chatBox = document.getElementById('chat-box');
+            const messageWrapper = document.createElement('div');
+            messageWrapper.className = `flex ${justifyClass} message-animation`;
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${className} my-2 py-3 px-4 max-w-xs rounded-lg ${bgClass} shadow-glow`;
+            messageDiv.textContent = message;
+
+            messageWrapper.appendChild(messageDiv);
+            chatBox.appendChild(messageWrapper);
+            smoothScrollToBottom();
+        }
+
+        function smoothScrollToBottom() {
+            const chatBox = document.getElementById('chat-box');
+            chatBox.scrollTo({
+                top: chatBox.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !isStreaming) {
+                sendMessage();
+            }
+        });
+
+        window.onbeforeunload = function() {
+            stopStreaming();
+        };
+
+        window.onload = function() {
+            isStreaming = false;
+            toggleInputState(false);
+            initParticles();
+        };
+
+        function initParticles() {
+    particlesJS('particles-js', {
+        particles: {
+            number: {
+                value: 50,
+                density: {
+                    enable: true,
+                    value_area: 800
+                }
+            },
+            color: {
+                value: '#5C8374'
+            },
+            shape: {
+                type: 'circle'
+            },
+            opacity: {
+                value: 1,
+                random: false
+            },
+            size: {
+                value: 3,
+                random: true
+            },
+            line_linked: {
+                enable: true,
+                distance: 150,
+                color: '#5C8374',
+                opacity: 1,
+                width: 1
+            },
+            move: {
+                enable: true,
+                speed: 2,
+                direction: 'none',
+                random: false,
+                straight: false,
+                out_mode: 'out',
+                bounce: false
+            }
+        },
+        interactivity: {
+            detect_on: 'canvas',
+            events: {
+                onhover: {
+                    enable: true,
+                    mode: 'grab'
+                },
+                resize: true
+            },
+            modes: {
+                grab: {
+                    distance: 140,
+                    line_linked: {
+                        opacity: 1.5
+                    }
+                }
+            }
+        },
+        retina_detect: true
+    });
+}
+
+// Add smooth hover effects to interactive elements
+document.querySelectorAll('button, input').forEach(element => {
+    element.addEventListener('mouseover', function() {
+        this.style.transition = 'all 0.3s ease';
+    });
+});
+
+// Smooth appearance for new messages
+function animateMessage(element) {
+    element.style.opacity = '0';
+    element.style.transform = 'translateY(20px)';
+    
+    setTimeout(() => {
+        element.style.opacity = '1';
+        element.style.transform = 'translateY(0)';
+    }, 100);
+}
+
+// Initialize animations when document is ready
+document.addEventListener('DOMContentLoaded', function() {
+    // Add animation to existing messages
+    document.querySelectorAll('.message').forEach(message => {
+        message.classList.add('message-animation');
+    });
+});
+    </script>
+</body>
+</html>
