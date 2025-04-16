@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bell-Bot</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
@@ -16,10 +15,10 @@
 
         /* Futuristic Glass Container */
         .glass-container {
-            background: rgba(30, 41, 59, 0.7); /* Darker background */
+            background: rgba(17, 24, 39, 0.9); /* Keeping dark container */
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(71, 85, 105, 0.3); /* Darker border */
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Deeper shadow */
+            border: 1px solid rgba(55, 65, 81, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
         }
 
         /* Modern Scrollbar */
@@ -28,16 +27,16 @@
         }
 
         .custom-scrollbar::-webkit-scrollbar-track {
-            background: rgba(20, 27, 38, 0.3); /* Darker track */
+            background: rgba(17, 24, 39, 0.5); /* Darker track */
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #64748B; /* Cool gray thumb */
+            background: #4B5563; /* Darker gray thumb */
             border-radius: 4px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #4A5568;
+            background: #374151;
         }
 
         /* Subtle Shadow Effects */
@@ -120,11 +119,9 @@
         }
     </style>
 
-<body class="bg-[#1E293B] flex items-center justify-center h-screen p-4 font-roboto-mono overflow-hidden">
-    <div id="particles-js" class="fixed inset-0 z-0"></div>
-
+<body class="bg-black flex items-center justify-center h-screen p-4 font-roboto-mono overflow-hidden">
     <div class="flex flex-col w-full max-w-2xl h-full glass-container rounded-xl shadow-subtle z-10 animate__animated animate__fadeIn">
-        <div class="px-6 py-4 border-b border-[#4A5568]/30 flex items-center justify-between relative overflow-hidden">
+        <div class="px-6 py-4 border-b border-[#374151]/30 flex items-center justify-between relative overflow-hidden">
             <div class="flex items-center space-x-3">
                 <div class="w-3 h-3 bg-blue-400 rounded-full pulse-subtle"></div>
                 <h1 class="text-[#CBD5E0] text-xl font-semibold tracking-wide">Bell-Bot</h1>
@@ -134,30 +131,30 @@
                     Connected <span class="inline-block w-2 h-2 bg-blue-400 rounded-full ml-2 pulse-subtle"></span>
                 </div>
             </div>
-            <div class="absolute inset-0 bg-gradient-to-r from-[#2D3748]/10 to-[#64748B]/10 pointer-events-none"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-[#111827]/10 to-[#374151]/10 pointer-events-none"></div>
         </div>
 
         <div id="chat-box" class="flex-grow p-4 overflow-y-auto space-y-4 custom-scrollbar">
             <div class="flex justify-start animate__animated animate__fadeInUp">
-                <div class="message bot-message my-2 py-3 px-4 max-w-xs rounded-lg bg-[#374151] text-gray-200 shadow-interactive transition-all duration-200">
+                <div class="message bot-message my-2 py-3 px-4 max-w-xs rounded-lg bg-[#1F2937] text-gray-200 shadow-interactive transition-all duration-200">
                     Welcome to the future of interaction! How can I assist you today? ✨
                 </div>
             </div>
         </div>
 
         <div id="typing-indicator" class="hidden px-6 py-2">
-            <div class="flex space-x-2 items-center text-[#818CF8] bg-[#1E293B]/30 rounded-full px-4 py-2 w-fit">
+            <div class="flex space-x-2 items-center text-[#818CF8] bg-[#1F2937]/30 rounded-full px-4 py-2 w-fit">
                 <div class="typing-dot-modern"></div>
                 <div class="typing-dot-modern"></div>
                 <div class="typing-dot-modern"></div>
             </div>
         </div>
 
-        <div class="flex items-center p-4 space-x-4 border-t border-[#4A5568]/30 bg-gradient-to-b from-transparent to-[#1E293B]/20">
+        <div class="flex items-center p-4 space-x-4 border-t border-[#374151]/30 bg-gradient-to-b from-transparent to-[#111827]/20">
             <input type="text" id="user-input" placeholder="Engage with AI..."
-                class="flex-grow px-4 py-3 text-gray-300 bg-[#2D3748]/50 rounded-lg border border-[#64748B] focus:outline-none focus:ring-2 focus:ring-[#818CF8] transition-all duration-300 shadow-interactive">
+                class="flex-grow px-4 py-3 text-gray-300 bg-[#1F2937]/50 rounded-lg border border-[#374151] focus:outline-none focus:ring-2 focus:ring-[#818CF8] transition-all duration-300 shadow-interactive">
             <button id="send-btn" onclick="handleButton()"
-                class="px-6 py-3 text-white bg-gradient-to-r from-[#64748B] to-[#2D3748] hover:from-[#4A5568] hover:to-[#1A202C] rounded-lg shadow-interactive focus:outline-none transform transition-all duration-200">
+                class="px-6 py-3 text-white bg-gradient-to-r from-[#374151] to-[#1F2937] hover:from-[#1F2937] hover:to-[#111827] rounded-lg shadow-interactive focus:outline-none transform transition-all duration-200">
                 <i id="button-icon" class="ph ph-paper-plane-right text-xl"></i>
             </button>
         </div>
@@ -292,78 +289,7 @@
         window.onload = function() {
             isStreaming = false;
             toggleInputState(false);
-            initParticles();
         };
-
-        function initParticles() {
-            particlesJS('particles-js', {
-                particles: {
-                    number: {
-                        value: 60,
-                        density: {
-                            enable: true,
-                            value_area: 800
-                        }
-                    },
-                    color: {
-                        value: '#818CF8'
-                    },
-                    shape: {
-                        type: 'circle'
-                    },
-                    opacity: {
-                        value: 0.8,
-                        random: true
-                    },
-                    size: {
-                        value: 2,
-                        random: true
-                    },
-                    line_linked: {
-                        enable: true,
-                        distance: 150,
-                        color: '#64748B',
-                        opacity: 0.4,
-                        width: 1
-                    },
-                    move: {
-                        enable: true,
-                        speed: 1,
-                        direction: 'none',
-                        random: true,
-                        straight: false,
-                        out_mode: 'out',
-                        bounce: false
-                    }
-                },
-                interactivity: {
-                    detect_on: 'canvas',
-                    events: {
-                        onhover: {
-                            enable: true,
-                            mode: 'grab'
-                        },
-                        onclick: {
-                            enable: true,
-                            mode: 'push'
-                        },
-                        resize: true
-                    },
-                    modes: {
-                        grab: {
-                            distance: 140,
-                            line_linked: {
-                                opacity: 1
-                            }
-                        },
-                        push: {
-                            particles_nb: 4
-                        }
-                    }
-                },
-                retina_detect: true
-            });
-        }
     </script>
 </body>
 </html>
