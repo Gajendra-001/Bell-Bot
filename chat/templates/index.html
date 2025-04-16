@@ -3,179 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HMX-Chatbot</title>
+    <title>Bell-Bot</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        .font-roboto-mono {
+            font-family: 'Roboto Mono', monospace;
+        }
 
-</head>
-<style>
-.font-space-grotesk {
-    font-family: 'Space Grotesk', sans-serif;
-}
+        /* Futuristic Glass Container */
+        .glass-container {
+            background: rgba(30, 41, 59, 0.7); /* Darker background */
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(71, 85, 105, 0.3); /* Darker border */
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Deeper shadow */
+        }
 
-/* Glass Container */
-.glass-container {
-    background: rgba(24, 61, 61, 0.7);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(92, 131, 116, 0.3);
-}
+        /* Modern Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
 
-/* Custom Scrollbar */
-.custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-}
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(20, 27, 38, 0.3); /* Darker track */
+        }
 
-.custom-scrollbar::-webkit-scrollbar-track {
-    background: rgba(4, 13, 18, 0.3);
-}
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #64748B; /* Cool gray thumb */
+            border-radius: 4px;
+        }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #5C8374;
-    border-radius: 3px;
-}
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #4A5568;
+        }
 
-/* Neon Shadow Effects */
-.shadow-neon {
-    box-shadow: 0 0 15px rgba(92, 131, 116, 0.3),
-                0 0 30px rgba(92, 131, 116, 0.2);
-}
+        /* Subtle Shadow Effects */
+        .shadow-subtle {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
 
-.shadow-glow {
-    box-shadow: 0 2px 10px rgba(92, 131, 116, 0.2);
-}
+        .shadow-interactive:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-1px);
+        }
 
-/* Message Animations */
-.message-animation {
-    animation: messageSlide 0.3s ease-out forwards;
-    opacity: 0;
-    transform: translateY(20px);
-}
+        /* Animated Messages */
+        .message-enter {
+            opacity: 0;
+            transform: translateY(10px);
+        }
 
-@keyframes messageSlide {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+        .message-enter-active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 200ms ease-out, transform 200ms ease-out;
+        }
 
-/* Typing Indicator */
-.typing-dot {
-    width: 8px;
-    height: 8px;
-    background:rgb(96, 142, 124);
-    border-radius: 50%;
-    animation: typingAnimation 1.4s infinite ease-in-out;
-}
+        .message-leave-to {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 200ms ease-in, transform 200ms ease-in;
+        }
 
-.typing-dot:nth-child(1) { animation-delay: 0s; }
-.typing-dot:nth-child(2) { animation-delay: 0.2s; }
-.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        /* Modern Typing Indicator */
+        .typing-dot-modern {
+            width: 10px;
+            height: 10px;
+            background: #818CF8; /* Soft blue */
+            border-radius: 50%;
+            animation: typingModern 1.4s infinite ease-in-out;
+        }
 
-@keyframes typingAnimation {
-    0%, 60%, 100% {
-        transform: translateY(0);
-    }
-    30% {
-        transform: translateY(-10px);
-    }
-}
+        .typing-dot-modern:nth-child(1) { animation-delay: 0s; }
+        .typing-dot-modern:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot-modern:nth-child(3) { animation-delay: 0.4s; }
 
-/* Pulse Animation */
-.pulse-animation {
-    animation: pulse 2s infinite;
-}
+        @keyframes typingModern {
+            0%, 60%, 100% {
+                transform: scale(1);
+            }
+            30% {
+                transform: scale(1.3);
+            }
+        }
 
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4);
-    }
-    70% {
-        box-shadow: 0 0 0 10px rgba(74, 222, 128, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
-    }
-}
+        /* Subtle Pulse Animation */
+        .pulse-subtle {
+            animation: pulseSubtle 2s infinite;
+        }
 
-/* Mobile Responsiveness */
-@media (max-width: 640px) {
-    .glass-container {
-        margin: 0;
-        height: 100vh;
-        border-radius: 0;
-    }
-}
-</style>
+        @keyframes pulseSubtle {
+            0% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            100% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+        }
 
-<body class="bg-[#040D12] flex items-center justify-center h-screen p-4 font-space-grotesk overflow-hidden">
-    <!-- Enhanced Particle Background -->
+        /* Mobile Responsiveness */
+        @media (max-width: 640px) {
+            .glass-container {
+                margin: 0;
+                height: 100vh;
+                border-radius: 0;
+            }
+        }
+    </style>
+
+<body class="bg-[#1E293B] flex items-center justify-center h-screen p-4 font-roboto-mono overflow-hidden">
     <div id="particles-js" class="fixed inset-0 z-0"></div>
 
-    <!-- Main Container with Advanced Glass Effect -->
-    <div class="flex flex-col w-full max-w-2xl h-full glass-container rounded-lg shadow-neon z-10">
-        <!-- Futuristic Header -->
-        <div class="px-6 py-4 border-b border-[#5C8374]/30 flex items-center justify-between relative overflow-hidden">
+    <div class="flex flex-col w-full max-w-2xl h-full glass-container rounded-xl shadow-subtle z-10 animate__animated animate__fadeIn">
+        <div class="px-6 py-4 border-b border-[#4A5568]/30 flex items-center justify-between relative overflow-hidden">
             <div class="flex items-center space-x-3">
-                <div class="w-3 h-3 bg-green-400 rounded-full pulse-animation"></div>
-                <h1 class="text-[#5C8374] text-xl font-bold tracking-wide">HMX AI</h1>
+                <div class="w-3 h-3 bg-blue-400 rounded-full pulse-subtle"></div>
+                <h1 class="text-[#CBD5E0] text-xl font-semibold tracking-wide">Bell-Bot</h1>
             </div>
             <div class="flex items-center space-x-2">
-                <div class="text-[#5C8374] text-sm bg-[#040D12]/30 px-3 py-1 rounded-full border border-[#5C8374]/30">
-                    Connected <span class="inline-block w-2 h-2 bg-green-400 rounded-full ml-2 pulse-animation"></span>
+                <div class="text-[#CBD5E0] text-sm bg-[#1E293B]/30 px-3 py-1 rounded-full border border-[#4A5568]/30">
+                    Connected <span class="inline-block w-2 h-2 bg-blue-400 rounded-full ml-2 pulse-subtle"></span>
                 </div>
             </div>
-            <!-- Animated Header Background -->
-            <div class="absolute inset-0 bg-gradient-to-r from-[#183D3D]/10 to-[#5C8374]/10 pointer-events-none"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-[#2D3748]/10 to-[#64748B]/10 pointer-events-none"></div>
         </div>
 
-        <!-- Enhanced Chat Box -->
         <div id="chat-box" class="flex-grow p-4 overflow-y-auto space-y-4 custom-scrollbar">
-            <!-- Welcome Message with 3D Effect -->
-            <div class="flex justify-start message-animation">
-                <div class="message bot-message my-2 py-3 px-4 max-w-xs rounded-lg bg-gradient-to-r from-[#183D3D] to-[#4a6d60] text-gray-100 shadow-glow transform hover:scale-102 transition-all duration-300">
-                    Welcome to the next generation of chat! How can I assist you? 🌟
+            <div class="flex justify-start animate__animated animate__fadeInUp">
+                <div class="message bot-message my-2 py-3 px-4 max-w-xs rounded-lg bg-[#374151] text-gray-200 shadow-interactive transition-all duration-200">
+                    Welcome to the future of interaction! How can I assist you today? ✨
                 </div>
             </div>
         </div>
 
-        <!-- Advanced Typing Indicator -->
         <div id="typing-indicator" class="hidden px-6 py-2">
-            <div class="flex space-x-2 items-center text-[#5C8374] bg-[#040D12]/30 rounded-full px-4 py-2 w-fit">
-                <div class="typing-dot"></div>
-                <div class="typing-dot"></div>
-                <div class="typing-dot"></div>
+            <div class="flex space-x-2 items-center text-[#818CF8] bg-[#1E293B]/30 rounded-full px-4 py-2 w-fit">
+                <div class="typing-dot-modern"></div>
+                <div class="typing-dot-modern"></div>
+                <div class="typing-dot-modern"></div>
             </div>
         </div>
 
-        <!-- Futuristic Input Area -->
-        <div class="flex items-center p-4 space-x-4 border-t border-[#5C8374]/30 bg-gradient-to-b from-transparent to-[#040D12]/20">
-            <input type="text" id="user-input" placeholder="Type your message here"
-                class="flex-grow px-4 py-3 text-white bg-[#040D12]/50 rounded-lg border border-[#5C8374] focus:outline-none focus:ring-2 focus:ring-[#5C8374] transition-all duration-300">
+        <div class="flex items-center p-4 space-x-4 border-t border-[#4A5568]/30 bg-gradient-to-b from-transparent to-[#1E293B]/20">
+            <input type="text" id="user-input" placeholder="Engage with AI..."
+                class="flex-grow px-4 py-3 text-gray-300 bg-[#2D3748]/50 rounded-lg border border-[#64748B] focus:outline-none focus:ring-2 focus:ring-[#818CF8] transition-all duration-300 shadow-interactive">
             <button id="send-btn" onclick="handleButton()"
-                class="px-6 py-3 text-white bg-gradient-to-r from-[#5C8374] to-[#183D3D] hover:from-[#4a6d60] hover:to-[#132d2d] rounded-lg shadow-lg focus:outline-none transform hover:scale-105 transition-all duration-300">
+                class="px-6 py-3 text-white bg-gradient-to-r from-[#64748B] to-[#2D3748] hover:from-[#4A5568] hover:to-[#1A202C] rounded-lg shadow-interactive focus:outline-none transform transition-all duration-200">
                 <i id="button-icon" class="ph ph-paper-plane-right text-xl"></i>
             </button>
         </div>
     </div>
- 
+
     <script>
         const userInput = document.getElementById('user-input');
         const sendBtn = document.getElementById('send-btn');
         const buttonIcon = document.getElementById('button-icon');
         const typingIndicator = document.getElementById('typing-indicator');
+        const chatBox = document.getElementById('chat-box');
         let currentEventSource = null;
         let isStreaming = false;
 
         function toggleInputState(disable) {
             userInput.disabled = disable;
             if (disable) {
-                buttonIcon.className = 'ph ph-stop-circle text-xl';
-                sendBtn.classList.add('bg-red-500');
+                buttonIcon.className = 'ph ph-stop-circle text-xl animate__animated animate__pulse animate__infinite';
+                sendBtn.classList.add('bg-red-500', 'hover:bg-red-600');
+                sendBtn.classList.remove('from-[#64748B]', 'to-[#2D3748]', 'hover:from-[#4A5568]', 'hover:to-[#1A202C]');
             } else {
                 buttonIcon.className = 'ph ph-paper-plane-right text-xl';
-                sendBtn.classList.remove('bg-red-500');
+                sendBtn.classList.remove('bg-red-500', 'hover:bg-red-600', 'animate__animated', 'animate__pulse', 'animate__infinite');
+                sendBtn.classList.add('from-[#64748B]', 'to-[#2D3748]', 'hover:from-[#4A5568]', 'hover:to-[#1A202C]');
             }
         }
 
@@ -201,10 +207,9 @@
             const message = userInput.value.trim();
             if (message === '') return;
 
-            // Close any existing EventSource
             stopStreaming();
 
-            displayMessage(message, 'user-message', 'justify-end', 'bg-gradient-to-r from-[#5C8374] to-[#183D3D]');
+            displayMessage(message, 'user-message', 'justify-end', 'bg-[#4A5568]');
 
             isStreaming = true;
             toggleInputState(true);
@@ -212,12 +217,12 @@
             typingIndicator.classList.remove('hidden');
 
             const messageWrapper = document.createElement('div');
-            messageWrapper.className = `flex justify-start message-animation`;
+            messageWrapper.className = `flex justify-start animate__animated animate__fadeInUp`;
             const messageDiv = document.createElement('div');
-            messageDiv.className = `message bot-message my-2 py-3 px-4 max-w-xs rounded-lg bg-gradient-to-r from-[#183D3D] to-[#4a6d60] text-gray-100 shadow-glow`;
+            messageDiv.className = `message bot-message my-2 py-3 px-4 max-w-xs rounded-lg bg-[#374151] text-gray-200 shadow-interactive transition-all duration-200`;
 
             messageWrapper.appendChild(messageDiv);
-            document.getElementById('chat-box').appendChild(messageWrapper);
+            chatBox.appendChild(messageWrapper);
             smoothScrollToBottom();
 
             try {
@@ -234,20 +239,21 @@
 
                 currentEventSource.onerror = function() {
                     stopStreaming();
+                    displayBotMessage('Error connecting to the server.');
                 };
             } catch (error) {
                 console.error('Error:', error);
                 stopStreaming();
+                displayBotMessage('An unexpected error occurred.');
             }
         }
 
         function displayMessage(message, className, justifyClass, bgClass) {
-            const chatBox = document.getElementById('chat-box');
             const messageWrapper = document.createElement('div');
-            messageWrapper.className = `flex ${justifyClass} message-animation`;
+            messageWrapper.className = `flex ${justifyClass} animate__animated animate__fadeInUp`;
 
             const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${className} my-2 py-3 px-4 max-w-xs rounded-lg ${bgClass} shadow-glow`;
+            messageDiv.className = `message ${className} my-2 py-3 px-4 max-w-xs rounded-lg ${bgClass} text-gray-200 shadow-interactive transition-all duration-200`;
             messageDiv.textContent = message;
 
             messageWrapper.appendChild(messageDiv);
@@ -255,8 +261,18 @@
             smoothScrollToBottom();
         }
 
+        function displayBotMessage(text) {
+            const messageWrapper = document.createElement('div');
+            messageWrapper.className = `flex justify-start animate__animated animate__fadeInUp`;
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message bot-message my-2 py-3 px-4 max-w-xs rounded-lg bg-[#374151] text-gray-200 shadow-interactive transition-all duration-200`;
+            messageDiv.textContent = text;
+            messageWrapper.appendChild(messageDiv);
+            chatBox.appendChild(messageWrapper);
+            smoothScrollToBottom();
+        }
+
         function smoothScrollToBottom() {
-            const chatBox = document.getElementById('chat-box');
             chatBox.scrollTo({
                 top: chatBox.scrollHeight,
                 behavior: 'smooth'
@@ -280,93 +296,74 @@
         };
 
         function initParticles() {
-    particlesJS('particles-js', {
-        particles: {
-            number: {
-                value: 50,
-                density: {
-                    enable: true,
-                    value_area: 800
-                }
-            },
-            color: {
-                value: '#5C8374'
-            },
-            shape: {
-                type: 'circle'
-            },
-            opacity: {
-                value: 1,
-                random: false
-            },
-            size: {
-                value: 3,
-                random: true
-            },
-            line_linked: {
-                enable: true,
-                distance: 150,
-                color: '#5C8374',
-                opacity: 1,
-                width: 1
-            },
-            move: {
-                enable: true,
-                speed: 2,
-                direction: 'none',
-                random: false,
-                straight: false,
-                out_mode: 'out',
-                bounce: false
-            }
-        },
-        interactivity: {
-            detect_on: 'canvas',
-            events: {
-                onhover: {
-                    enable: true,
-                    mode: 'grab'
-                },
-                resize: true
-            },
-            modes: {
-                grab: {
-                    distance: 140,
+            particlesJS('particles-js', {
+                particles: {
+                    number: {
+                        value: 60,
+                        density: {
+                            enable: true,
+                            value_area: 800
+                        }
+                    },
+                    color: {
+                        value: '#818CF8'
+                    },
+                    shape: {
+                        type: 'circle'
+                    },
+                    opacity: {
+                        value: 0.8,
+                        random: true
+                    },
+                    size: {
+                        value: 2,
+                        random: true
+                    },
                     line_linked: {
-                        opacity: 1.5
+                        enable: true,
+                        distance: 150,
+                        color: '#64748B',
+                        opacity: 0.4,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 1,
+                        direction: 'none',
+                        random: true,
+                        straight: false,
+                        out_mode: 'out',
+                        bounce: false
                     }
-                }
-            }
-        },
-        retina_detect: true
-    });
-}
-
-// Add smooth hover effects to interactive elements
-document.querySelectorAll('button, input').forEach(element => {
-    element.addEventListener('mouseover', function() {
-        this.style.transition = 'all 0.3s ease';
-    });
-});
-
-// Smooth appearance for new messages
-function animateMessage(element) {
-    element.style.opacity = '0';
-    element.style.transform = 'translateY(20px)';
-    
-    setTimeout(() => {
-        element.style.opacity = '1';
-        element.style.transform = 'translateY(0)';
-    }, 100);
-}
-
-// Initialize animations when document is ready
-document.addEventListener('DOMContentLoaded', function() {
-    // Add animation to existing messages
-    document.querySelectorAll('.message').forEach(message => {
-        message.classList.add('message-animation');
-    });
-});
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: 'grab'
+                        },
+                        onclick: {
+                            enable: true,
+                            mode: 'push'
+                        },
+                        resize: true
+                    },
+                    modes: {
+                        grab: {
+                            distance: 140,
+                            line_linked: {
+                                opacity: 1
+                            }
+                        },
+                        push: {
+                            particles_nb: 4
+                        }
+                    }
+                },
+                retina_detect: true
+            });
+        }
     </script>
 </body>
 </html>

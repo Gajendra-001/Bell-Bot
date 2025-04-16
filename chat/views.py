@@ -7,7 +7,7 @@ def index(request):
 
 def stream_with_ollama(prompt):
     process = subprocess.Popen(
-        ['wsl', '-d', 'Ubuntu', '--exec', 'ollama', 'run', 'gemma:2b', prompt],
+        ['wsl', '-u', 'gajendra', '--exec', 'ollama', 'run', 'gemma:2b', prompt],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True,
