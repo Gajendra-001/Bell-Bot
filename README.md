@@ -96,14 +96,3 @@ Bell-Bot/
 - The backend communicates with Ollama through WSL (for Windows users)
 - Custom styling includes glass-morphism effects and smooth animations
 
-## License 📄
-
-[Add your license information here]
-
-## Contributing 🤝
-
-[Add contribution guidelines here]
-
-## Support 🆘
-
-[Add support information here]
