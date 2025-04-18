@@ -5,20 +5,127 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bell-Bot</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
-        .font-roboto-mono {
-            font-family: 'Roboto Mono', monospace;
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --dark: #0f172a;
+            --darker: #020617;
         }
 
-        /* Futuristic Glass Container */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: white;
+            overflow: hidden;
+        }
+
+        .floating-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            top: -100px;
+            left: -100px;
+            animation: float1 15s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+            bottom: -150px;
+            right: -100px;
+            animation: float2 20s ease-in-out infinite;
+        }
+
+        .orb-3 {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: float3 25s ease-in-out infinite;
+        }
+
+        .floating-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, 50px); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-50px, -50px); }
+        }
+
+        @keyframes float3 {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            50% { transform: translate(-50%, -50%) rotate(180deg); }
+        }
+
         .glass-container {
-            background: rgba(17, 24, 39, 0.9); /* Keeping dark container */
+            background: rgba(15, 23, 42, 0.7);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(55, 65, 81, 0.3);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            z-index: 1;
+        }
+
+        .message-bubble {
+            color: white;
+        }
+
+        .user-message {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .bot-message {
+            background: rgba(30, 41, 59, 0.8);
+            color: white;
+        }
+
+        .history-item {
+            color: white;
+            opacity: 0.8;
+            transition: all 0.2s ease;
+        }
+
+        .history-item:hover {
+            background: rgba(99, 102, 241, 0.1);
+            transform: translateX(-4px);
+            opacity: 1;
+        }
+
+        .history-item.active {
+            background: rgba(99, 102, 241, 0.2);
+            border-right: 3px solid var(--primary);
+        }
+
+        .font-roboto-mono {
+            font-family: 'Roboto Mono', monospace;
         }
 
         /* Modern Scrollbar */
@@ -117,46 +224,110 @@
                 border-radius: 0;
             }
         }
+
+        .input-field {
+            color: white;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
     </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <!-- Floating Background Elements -->
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
 
-<body class="bg-black flex items-center justify-center h-screen p-4 font-roboto-mono overflow-hidden">
-    <div class="flex flex-col w-full max-w-2xl h-full glass-container rounded-xl shadow-subtle z-10 animate__animated animate__fadeIn">
-        <div class="px-6 py-4 border-b border-[#374151]/30 flex items-center justify-between relative overflow-hidden">
-            <div class="flex items-center space-x-3">
-                <div class="w-3 h-3 bg-blue-400 rounded-full pulse-subtle"></div>
-                <h1 class="text-[#CBD5E0] text-xl font-semibold tracking-wide">Bell-Bot</h1>
-            </div>
-            <div class="flex items-center space-x-2">
-                <div class="text-[#CBD5E0] text-sm bg-[#1E293B]/30 px-3 py-1 rounded-full border border-[#4A5568]/30">
-                    Connected <span class="inline-block w-2 h-2 bg-blue-400 rounded-full ml-2 pulse-subtle"></span>
+    <!-- Floating Particles -->
+    <script>
+        function createParticles() {
+            const container = document.body;
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating-particle';
+                
+                // Random position
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+                
+                // Random animation
+                const duration = 10 + Math.random() * 20;
+                const delay = Math.random() * 5;
+                particle.style.animation = `float1 ${duration}s ease-in-out ${delay}s infinite`;
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // Create particles when the page loads
+        window.onload = createParticles;
+    </script>
+
+    <div class="flex w-full max-w-6xl gap-4">
+        <!-- Main Chat Container -->
+        <div class="glass-container w-2/3 h-[600px] rounded-2xl overflow-hidden flex flex-col animate__animated animate__fadeIn">
+            <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-2 h-2 bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] rounded-full animate-pulse"></div>
+                    <h1 class="text-white text-xl font-semibold">Bell-Bot</h1>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="text-sm text-white bg-white/5 px-3 py-1 rounded-full">
+                        Connected
+                    </span>
                 </div>
             </div>
-            <div class="absolute inset-0 bg-gradient-to-r from-[#111827]/10 to-[#374151]/10 pointer-events-none"></div>
-        </div>
 
-        <div id="chat-box" class="flex-grow p-4 overflow-y-auto space-y-4 custom-scrollbar">
-            <div class="flex justify-start animate__animated animate__fadeInUp">
-                <div class="message bot-message my-2 py-3 px-4 max-w-xs rounded-lg bg-[#1F2937] text-gray-200 shadow-interactive transition-all duration-200">
-                    Welcome to the future of interaction! How can I assist you today? ✨
+            <div id="chat-box" class="flex-1 p-4 overflow-y-auto space-y-4 custom-scrollbar">
+                <div class="flex justify-start">
+                    <div class="message-bubble bot-message rounded-2xl px-4 py-3 max-w-[80%] shadow-lg animate__animated animate__fadeInUp">
+                        Hello! I'm Bell-Bot, your AI assistant. How can I help you today? ✨
+                    </div>
+                </div>
+            </div>
+
+            <div id="typing-indicator" class="hidden px-6 py-2">
+                <div class="typing-indicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-white/10 bg-gradient-to-b from-transparent to-black/20">
+                <div class="flex items-center space-x-3">
+                    <input type="text" id="user-input" placeholder="Type your message..."
+                        class="input-field flex-1 px-4 py-3 rounded-xl text-white placeholder-white/50 focus:outline-none">
+                    <button id="send-btn" onclick="handleButton()"
+                        class="send-button p-3 rounded-xl text-white focus:outline-none">
+                        <i id="button-icon" class="ph ph-paper-plane-right text-xl"></i>
+                    </button>
                 </div>
             </div>
         </div>
 
-        <div id="typing-indicator" class="hidden px-6 py-2">
-            <div class="flex space-x-2 items-center text-[#818CF8] bg-[#1F2937]/30 rounded-full px-4 py-2 w-fit">
-                <div class="typing-dot-modern"></div>
-                <div class="typing-dot-modern"></div>
-                <div class="typing-dot-modern"></div>
+        <!-- History Sidebar -->
+        <div class="glass-container w-1/3 h-[600px] rounded-2xl overflow-hidden flex flex-col">
+            <div class="p-4 border-b border-white/10">
+                <h2 class="text-white text-lg font-semibold flex items-center space-x-2">
+                    <i class="ph ph-clock text-xl"></i>
+                    <span>Chat History</span>
+                </h2>
             </div>
-        </div>
-
-        <div class="flex items-center p-4 space-x-4 border-t border-[#374151]/30 bg-gradient-to-b from-transparent to-[#111827]/20">
-            <input type="text" id="user-input" placeholder="Engage with AI..."
-                class="flex-grow px-4 py-3 text-gray-300 bg-[#1F2937]/50 rounded-lg border border-[#374151] focus:outline-none focus:ring-2 focus:ring-[#818CF8] transition-all duration-300 shadow-interactive">
-            <button id="send-btn" onclick="handleButton()"
-                class="px-6 py-3 text-white bg-gradient-to-r from-[#374151] to-[#1F2937] hover:from-[#1F2937] hover:to-[#111827] rounded-lg shadow-interactive focus:outline-none transform transition-all duration-200">
-                <i id="button-icon" class="ph ph-paper-plane-right text-xl"></i>
-            </button>
+            <div id="history-list" class="flex-1 p-4 space-y-2 overflow-y-auto custom-scrollbar">
+                <!-- History items will be added here -->
+            </div>
+            <div class="p-4 border-t border-white/10 text-center text-white/70 text-sm">
+                Click any prompt to reuse it
+            </div>
         </div>
     </div>
 
@@ -166,8 +337,10 @@
         const buttonIcon = document.getElementById('button-icon');
         const typingIndicator = document.getElementById('typing-indicator');
         const chatBox = document.getElementById('chat-box');
+        const historyList = document.getElementById('history-list');
         let currentEventSource = null;
         let isStreaming = false;
+        let chatHistory = JSON.parse(localStorage.getItem('chatHistory') || '[]');
 
         function toggleInputState(disable) {
             userInput.disabled = disable;
@@ -205,8 +378,8 @@
             if (message === '') return;
 
             stopStreaming();
-
-            displayMessage(message, 'user-message', 'justify-end', 'bg-[#4A5568]');
+            addToHistory(message);
+            displayMessage(message, 'user-message', 'justify-end');
 
             isStreaming = true;
             toggleInputState(true);
@@ -290,6 +463,43 @@
             isStreaming = false;
             toggleInputState(false);
         };
+
+        // History Management
+        function addToHistory(prompt) {
+            chatHistory.unshift({
+                id: Date.now(),
+                prompt: prompt,
+                timestamp: new Date().toLocaleString()
+            });
+            
+            // Keep only last 50 items
+            if (chatHistory.length > 50) {
+                chatHistory = chatHistory.slice(0, 50);
+            }
+            
+            localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+            updateHistoryUI();
+        }
+
+        function updateHistoryUI() {
+            historyList.innerHTML = '';
+            chatHistory.forEach(item => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item p-3 rounded-lg text-white/70 cursor-pointer hover:text-white';
+                historyItem.innerHTML = `
+                    <div class="text-sm truncate">${item.prompt}</div>
+                    <div class="text-xs text-white/50 mt-1">${item.timestamp}</div>
+                `;
+                historyItem.onclick = () => {
+                    userInput.value = item.prompt;
+                    userInput.focus();
+                };
+                historyList.appendChild(historyItem);
+            });
+        }
+
+        // Initialize history UI
+        updateHistoryUI();
     </script>
 </body>
 </html>
